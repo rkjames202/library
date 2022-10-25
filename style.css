@@ -1,3 +1,4 @@
+/* External font family */
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 *, *:before, *:after{
@@ -9,15 +10,23 @@ html, body{
     font-family: Lato, sans-serif;
 }
 
-input,
+:root{
+    --table-button-red: rgb(243, 124, 124);
+    --table-button-green: rgb(131, 204, 113);
+    --neutral-background-color:  rgb(235, 233, 233);
+}
+
+/**Remove default styling from form controls and buttons**/
+input[type="text"],
+input[type="number"],
 button{
+    outline:none;
     appearance: none;
     border: none;
     padding: 0;
 }
 
-
-
+/** Header bar **/
 .header-bar{
     height: 60px;
     box-shadow: 0 4px 4px -4px;
@@ -26,23 +35,28 @@ button{
     align-items: center;
 }
 
+.header-title{
+    font-size: 2rem;
+    text-align: center;
+}
 
 
+/** Modal **/
 .modal{
     display: none;
     position: fixed;
     z-index: 1; /*So modal sits on top*/
     left: 0;
     top: 0;
-    width: 100%; /**full height and width**/
+    width: 100%; /* Full height and width */
     height: 100%;
     background-color: rgb(7, 7, 7, 0.1);
 }
 
 .modal-form{
     position: relative;
-    margin: 15% auto;
-    height: 400px;
+    margin: 15% auto; /* Center modal*/
+    height: 370px;
     width: 300px;
     background: white;
     border-radius: 10px;
@@ -50,37 +64,86 @@ button{
 }
 
 .modal-form > span{
+    font-size: 1.2rem;
     font-weight: bolder;
     position: absolute;
-    right: 2px;
-    top: 1px;
+    border-radius: 15px;
+    padding: 1px 3px;
+    right: 10px;
+    top: 5px;
 }
 
 .modal-form > span:hover{
     cursor: pointer;
+    background-color: var(--neutral-background-color)
 }
 
-.modal-form fieldset legend{
+fieldset legend{
     text-align: center;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.modal-form fieldset{
+fieldset{
     border: none;
     display:grid;
     grid-template-rows: 5fr;
     gap: 15px;
+    padding: 0 15px;
 }
 
-.modal-form button{
+label{
+    margin-bottom: -10px;
+    width: fit-content;
+}
+
+label[for="book-status"]{
     place-self: center;
 }
 
-.header-title{
-    font-size: 2rem;
-    text-align: center;
+input[type="checkbox"]{
+    height: 20px;
+    width: 20px;
+    place-self: center;
 }
 
+input[type="checkbox"]:hover{
+    cursor: pointer;
+}
+
+input:not([type="checkbox"]){
+    background-color: var(--neutral-background-color);
+    font-size: 1rem;
+    height: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 2px rgb(201, 201, 201);
+}
+
+input:hover{
+    background-color: rgb(218, 216, 216);
+}
+
+input:focus{
+    border: 1px solid rgb(80, 80, 80);
+}
+
+.modal-form button{
+    font-size: 1rem;
+    place-self: center;
+    padding: 5px 20px;
+}
+
+.modal-form button, 
+.add-book-button button,
+.status-button,
+.remove-button{
+    font-weight: bold;
+    background-color: var(--neutral-background-color);
+    border-radius: 5px;
+}
+
+/* Main content*/
 .main-content{
     display: grid;
     grid-template-rows: 200px 1fr;
@@ -95,47 +158,86 @@ button{
 }
 
 .add-book-button button{
-    font-weight: bold;
+    font-size: 1rem;
     padding: 10px;
-    border-radius: 5px;
-    background-color: rgb(235, 233, 233);
 }
 
-.add-book-button button:hover{
+.add-book-button button:hover,
+.modal-form button:hover{
     cursor: pointer;
-    background-color: rgb(221, 219, 219);
+    filter: brightness(90%);
 }
 
-.add-book-button button:active{
-    box-shadow: inset 0px 0px 2px rgb(80, 79, 79);
+
+
+button:active{
+    box-shadow: inset 0px 0px 5px rgb(80, 79, 79);
 }
 
 .book-table{
     justify-self: center;
+    padding: 0 20px;
 }
 
-.book-table > table{
+.book-table th{
     letter-spacing: 1px;
-}
-
-td:not(:last-of-type), th{
-    padding: 10px 50px;
-}
-
-td:nth-child(4){
-    width: 200px;
-}
-
-.status-button{
-   margin: auto;
 }
 
 table{
     border-collapse: collapse; /*So border appears on bottom of row*/
+    min-width: 600px;
 }
 
 tr:not(:last-of-type){
     border-bottom: 1px solid rgb(20, 20, 20, 0.3);
+}
+
+td:not(:last-of-type), th{
+    padding: 10px 20px;
+    text-align: center;
+}
+
+td:nth-child(4){
+    width: 100px;
+}
+
+/* Title and author columns*/
+td:nth-child(1),
+td:nth-child(2){
+    word-break: break-word;
+}
+
+td:nth-child(1){
+    max-width: 300px;
+}
+
+td:nth-child(2){
+    max-width: 200px;
+}
+
+td:last-of-type{
+    padding-left: 50px;
+}
+
+.status-button,
+.remove-button{
+    padding: 4px 8px;    
+    font-size: 0.9rem;
+    height: 40px;
+    width: 75px;
+}
+
+.status-button:hover,
+.remove-button:hover{
+    cursor: pointer;
+}
+
+.status-button:hover{
+    filter: brightness(110%);
+}
+
+.remove-button:hover{
+    background-color: var(--table-button-red);
 }
 
 @keyframes fadeIn {
