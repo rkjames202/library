@@ -49,14 +49,14 @@ function Book(title, author, pages, status){
 
 function addBookToLibrary(){
     const form = document.querySelector(".modal-form form");
-    const title = document.querySelector("#title").value;
-    const author = document.querySelector("#author").value;
-    const pages = document.querySelector("#pages").value;
-    const status = document.querySelector("#book-status").checked;
+    const title = document.querySelector("#title");
+    const author = document.querySelector("#author");
+    const pages = document.querySelector("#pages");
+    const status = document.querySelector("#book-status");
 
     if(form.checkValidity()){
         const bookTable = document.querySelector("table");
-        let newBook = new Book(title, author, pages, status);
+        let newBook = new Book(title.value, author.value, pages.value, status.checked);
         myLibrary.push(newBook);
 
         fadeOutModal();
@@ -64,6 +64,7 @@ function addBookToLibrary(){
             title.value = "";
             author.value = "";
             pages.value = "";
+            status.checked = false;
         }, 500);
 
        
