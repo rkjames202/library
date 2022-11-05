@@ -12,6 +12,8 @@ function main(){
     addEventListeners();
 }
 
+class Book{
+
 /**
  * Creates a book object 
  * 
@@ -20,21 +22,21 @@ function main(){
  * @param {number} pages - Number of pages in the book
  * @param {Boolean} status - If the book has been read or not
  */
-function Book(title, author, pages, status){
-    this.title = title.trim(); //Remove whitespace from string values
-    this.author = author.trim();
-    this.pages = pages;
-    this.status = status;
-}
+    constructor(title, author, pages, status){
+        this.title = title.trim(); //Remove whitespace from string values
+        this.author = author.trim();
+        this.pages = pages;
+        this.status = status;
+    }
 
-/**
+    /**
   * Creates a row containing all of an object's 
   * attributes along with buttons to manipulate
   * the object.
   * 
   * @returns a row node representing the object
   */
-Book.prototype.createRow = function(){
+    createRow = () => {
     
         const newRow = document.createElement("tr");
         //Buttons to change status and delete book
@@ -58,7 +60,7 @@ Book.prototype.createRow = function(){
         removeButton.innerText = "Remove";
         //Sets background color based on status
         statusButton.style.backgroundColor = `${this.status ? "var(--table-button-green)": 
-                                                              "var(--table-button-red)"}`;
+                                                            "var(--table-button-red)"}`;
 
         //Add event listeners to buttons                                                     
         statusButton.addEventListener('click', changeStatus);
@@ -72,6 +74,8 @@ Book.prototype.createRow = function(){
         });
 
         return newRow;
+    }
+    
 }
 
 /**
@@ -194,7 +198,7 @@ function addEventListeners(){
 
     //Animate book gif when user hovers
     addBookButton.addEventListener('mouseover', animateBookImage); 
-    addBookButton.addEventListener('mouseout', resetBookImage);
+    addBookButton.addEventListener('mouseout', animateBookImage);
     
     window.addEventListener('mousedown', (e) => {
         //If the modal is currently active disable it if user clicks outside of its form
@@ -238,21 +242,18 @@ function fadeOutModal(){
 }
 
 /**
- * Changes static book image to gif
+ * Alternates book image from png to
+ * gif
  */
 function animateBookImage(){
     const bookImg = document.querySelector(".add-book-button img");
-    bookImg.setAttribute("src", "img/Book-animation.gif");
-    bookImg.setAttribute("alt", "book-animation");
-}
-
-/**
- * Changes book gif back to static image 
- */
-function resetBookImage(){
-    const bookImg = document.querySelector(".add-book-button img");
-    bookImg.setAttribute("src", "img/Book-static.png");
-    bookImg.setAttribute("alt", "book-static-image");
+   
+    if (bookImg.getAttribute("src") === "img/Book-animation.gif"){
+        bookImg.setAttribute("src", "img/Book-static.png");
+   } else {
+        bookImg.setAttribute("src", "img/Book-animation.gif");
+   }
+   
 }
 
 main();
