@@ -216,7 +216,8 @@ td:nth-child(2){
 }
 
 td:last-of-type{
-    padding-left: 50px;
+    width: 100px;
+    border-left: 1px solid rgba(58, 58, 58, 0.3);
 }
 
 .status-button,
@@ -225,6 +226,10 @@ td:last-of-type{
     font-size: 0.9rem;
     height: 40px;
     width: 75px;
+}
+
+.remove-button{
+    margin-left: 10px;
 }
 
 .status-button:hover,
